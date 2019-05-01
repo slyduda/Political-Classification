@@ -1,4 +1,5 @@
 class Tweet():
+    #will fix to fit all cases
     def __init__(self, json):
         self.created_at = json['created_at']
         self._id = json['id']
