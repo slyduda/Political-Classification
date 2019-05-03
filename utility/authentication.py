@@ -3,6 +3,16 @@ from collections import OrderedDict
 from utility.secrets import CONSUMER_KEY, ACCESS_TOKEN_KEY
 from utility.signature import encode_dict
 
+    # Old method for authenticating users for my own knowledge. Has been replaced by OAuth1 library
+#    oauth_dict = collect_parameters(saved_args)
+#    parameter_string = create_parameter_string(oauth_dict)
+#    signature_base = create_signature_base(HTTP_method, base_URL, parameter_string)
+#    oauth_signature = get_signing_key(signature_base)
+
+    # Sending the request
+#    headers = create_header_parameters(oauth_dict, oauth_signature)
+
+
 def generate_nonce(digits=16):
     """
         Generate a unique random string.

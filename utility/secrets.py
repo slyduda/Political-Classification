@@ -1,5 +1,5 @@
-# Should contain the user path for authorization. Will be replaced by a param script.
-path = 'temp'
+#Should contain the user path for authorization. Will be replaced by a param script.
+path = 'C:\\Users\\fk339sq\\Documents\\Git Secrets\\Twitter App.txt'
 contents = ""
 with open(path, 'r') as f:
     contents = f.readlines()

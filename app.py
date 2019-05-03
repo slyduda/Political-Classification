@@ -5,6 +5,33 @@ from utility.signature import create_parameter_string, create_signature_base, ge
 from utility.authentication import create_header_parameters, collect_parameters
 from utility.tweet import Tweet
 
+
+class API(object):
+    def __init__(self,
+                 consumer_key=None,
+                 consumer_secret=None,
+                 access_token_key=None,
+                 access_token_secret=None):
+        """Instantiate a new twitter.Api object.
+
+        Args:
+          consumer_key (str):
+            Twitter user's consumer_key.
+          consumer_secret (str):
+            Twitter user's consumer_secret.
+          access_token_key (str):
+            OAuth access token key value.
+          access_token_secret (str):
+            OAuth access token's secret.
+        """
+        self.consumer_key = consumer_key
+        self.consumer_secret = consumer_secret
+        self.access_token_key = access_token_key
+        self.access_token_secret = access_token_secret
+        #To be replaced by Auth Session in the future.
+        self.auth = OAuth1(self.consumer_key, self.consumer_secret, self.access_token_key, self.access_token_secret, signature_type='auth_header')
+
+
 def build_URL(base, dic):
     URL = base + "?"
     for k,v in dic.items():
@@ -93,27 +120,25 @@ def get_users_search(q, page=1, count=20, include_entities=False):
 
         Only the first 1,000 matching results are available.
 
-        q: The search query to run against people search.
-        
-        page: Specifies the page of results to retrieve.
-        
-        count: The number of potential user results to retrieve per page. This value has a maximum of 20.
-        
-        include_entities: The entities node will not be included in embedded Tweet objects when set to false.  
+        Args:
+            q: 
+                The search query to run against people search.
+            
+            page: 
+                Specifies the page of results to retrieve.
+            
+            count: 
+                The number of potential user results to retrieve per page. This value has a maximum of 20.
+            
+            include_entities: 
+                The entities node will not be included in embedded Tweet objects when set to false.  
     """
     saved_args = organize_locals(dict(locals()))
     HTTP_method = "GET"
     base_URL = "https://api.twitter.com/1.1/users/search.json"
     
-    oauth_dict = collect_parameters(saved_args)
-    parameter_string = create_parameter_string(oauth_dict)
-    signature_base = create_signature_base(HTTP_method, base_URL, parameter_string)
-    oauth_signature = get_signing_key(signature_base)
-
-    # Sending the request
-    headers = create_header_parameters(oauth_dict, oauth_signature)
     new_URL = build_URL(base_URL, saved_args)
-    r = requests.get(new_URL, headers=headers)
+    r = requests.get(new_URL, auth=API.auth)
     return r
 
 
@@ -245,3 +270,4 @@ def print_statuses(username, count=2000):
 
 
 r = get_users_search("Bay Area")
+print('d')
