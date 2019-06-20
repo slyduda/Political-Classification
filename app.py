@@ -6,10 +6,6 @@ import json
 follow_limit = 400 # per day for user
 expiration_time = 60*60*24*2 # 2 days
 
-api = Api(consumer_key="T6onfLir523hNtBPHJtoDiiss",
-        consumer_secret="to4sK1Slmb0D7kKUyxCDut4jJwSVJPbU8pElOgZB3v4LNVcAVi",
-        access_token_key="2184575798-8O3dX2NECWmUJKanm81C1pj3zC3DjLoniYR0j4Q",
-        access_token_secret="gd4gDVf1eWms7qyMMQSwFnOybnojy619gVdiMWHW3R85z")
 
 owner = api.GetUser(screen_name="slyduda").json()
 
